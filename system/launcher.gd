@@ -1,26 +1,25 @@
 extends Control
 class_name Launcher
 
-enum Mode { OPAQUE, TRANSPARENT }
+enum Mode {OPAQUE, TRANSPARENT}
 
 var mode = Mode.OPAQUE setget _set_mode
 var fullscreen = true
 
 var tagged_services = {}
-var desktop : Desktop
-var app : AppHandler
-var first_app : PackedScene
+var desktop: Desktop
+var app: AppHandler
+var first_app: PackedScene
 
-onready var services_container : Node = $Services
-onready var background : Panel = $BackgroundLayer/Background
-onready var tween : Tween = $Tween
+onready var services_container: Node = $Services
+onready var background: Panel = $BackgroundLayer/Background
+onready var tween: Tween = $Tween
 
 
 func _ready():
 	# Configure the launcher for testing
 	if OS.has_feature("x86_64"):
 #		OS.window_resizable = true
-		
 		var ev = InputEventKey.new()
 		ev.pressed = true
 		ev.scancode = KEY_SLASH
@@ -49,16 +48,16 @@ func _ready():
 	
 	# Listen to Desktop signals, when you want to close or kill an app
 	add_child(desktop)
-	desktop.connect("open_request", self, "_status_open_request")
-	desktop.connect("close_request", self, "_status_close_request")
-	desktop.connect("home_request", self, "_desktop_home_request", [], CONNECT_DEFERRED)
+	desktop.connect("open_request", self , "_status_open_request")
+	desktop.connect("close_request", self , "_status_close_request")
+	desktop.connect("home_request", self , "_desktop_home_request", [], CONNECT_DEFERRED)
 	desktop.free_space()
 	
 	# Listen to the App Handler signals, when Apps want to change the title or the bars visibility
 	app = desktop.get_app_handler()
-	app.connect("title_change_request", self, "_title_change_request")
-	app.connect("window_mode_request", self, "_window_mode_request")
-	app.connect("display_mode_request", self, "_display_mode_request")
+	app.connect("title_change_request", self , "_title_change_request")
+	app.connect("window_mode_request", self , "_window_mode_request")
+	app.connect("display_mode_request", self , "_display_mode_request")
 	
 	app.add_app(first_app.instance())
 	app.focus()
@@ -76,14 +75,14 @@ func get_services() -> Array:
 	return services_container.get_children()
 
 
-func get_tagged_service(tag : String) -> Node:
+func get_tagged_service(tag: String) -> Node:
 	if tagged_services.has(tag):
 		return tagged_services[tag]
 	return null
 
 
 func is_fullscreen():
-	return 
+	return
 
 
 func _set_mode(value):

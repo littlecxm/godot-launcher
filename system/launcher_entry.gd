@@ -4,7 +4,7 @@ class_name LauncherEntry
 signal executed(error)
 signal move_request(to_directory)
 
-var path : String
+var path: String
 
 
 # Extend this class and override this method to define what happens when this entry is selected.
@@ -13,14 +13,12 @@ var path : String
 # Return OK if the execution is successful.
 # Return FAILED otherwise.
 func exec():
-	
 	executed(OK)
 	return OK
 
 
 # Override this function and return the entry label to show to the user.
 func get_label() -> String:
-	
 	return ""
 
 
@@ -42,5 +40,4 @@ func executed(error):
 # Should be called by UI entries each frame when the entry is running.
 # You can perform custom logic here until you call executed(error).
 func _process(delta):
-	
 	pass

@@ -1,7 +1,7 @@
 extends Node
 
-var version : String
-var languages : Dictionary
+var version: String
+var languages: Dictionary
 
 
 func _ready():
